@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week1產品列表任務</title>
+    <title>Week1-產品列表任務</title>
+    <!--環境建立，加入React CDN link/babel CDN link/Bootstrap-->
     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -14,10 +15,14 @@
 <body class="bg-lighter">
     <div class="container main my-5"><div class="row"><main class="col post">
     <div id="root"></div>
-        
+    
+    <!--在JSX的環境下撰寫功能，需加入type="text/babel"-->
     <script type="text/babel">
+        {/*建立function App()*/}
         function App(){
+            {/*建立React.useState，以變更當前資料*/}
             const [tempProduct, setTempProduct] = React.useState(null);
+            {/*建立products資料內容*/}
             const products = [
                 {
                 category: "甜甜圈",
@@ -70,13 +75,16 @@
                 ]
                 }
             ];
-
+            
+            {/*function回傳資料，用HTML格式撰寫*/}
             return(
                 <div className="container">
                     <div className = "row">
                         <div className = "col-6">
                             <h3>產品列表</h3>
+                            {/*產品列表用table顯示*/}
                             <table className="table">
+                                {/*table標題*/}
                                 <thead>
                                 <tr>
                                     <th>產品名稱</th>
@@ -86,14 +94,18 @@
                                     <th>查看細節</th>
                                 </tr>
                                 </thead>
+                                {/*table內容*/}
                                 <tbody>
+                                {/*回傳products物件資料，使用map將每一筆資料顯示出來*/}
                                 {products.map((item) => (
                                     <tr key={item.id}>
                                     <td>{item.title}</td>
                                     <td>{item.origin_price}</td>
                                     <td>{item.price}</td>
+                                    {/*使用三元運算子判斷item.is_enabled是否有值，若有的話顯示啟用，若無則顯示未啟用*/}
                                     <td>{item.is_enabled ? "啟用" : "未啟用"}</td>
                                     <td>
+                                        {/*建立button，在點擊(onClick)時，執行setTempProduct變更當前資料*/}
                                         <button className="btn btn-primary" onClick={() => setTempProduct(item)}>查看細節</button>
                                     </td>
                                     </tr>
@@ -103,8 +115,10 @@
                         </div>
                         <div className = "col-6">
                             <h3>單一產品細節</h3>
+                            {/*使用三元運算子判斷tempProduct是否有值，若有的話顯示冒號前的資料，若無則顯示冒號後的內容*/}
                             {tempProduct ? (
                             <div className="card mb-3">
+                                {/*依據選取到的tempProduct帶出相對應的資料*/}
                                 <img src={tempProduct.imageUrl} className="card-img-top primary-image" alt="主圖" />
                                 <div className="card-body">
                                 <h5 className="card-title">
@@ -134,6 +148,7 @@
             )
         }
 
+        {/*使用ReactDOM渲染出App的內容*/}
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
